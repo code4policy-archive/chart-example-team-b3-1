@@ -1,6 +1,5 @@
-function drawLineChart(cssSelector){
+function drawLineChart(idAttr, dataFile){
   // code to draw line chart goes here.
-
 
   var margin = {top: 20, right: 50, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
@@ -29,15 +28,15 @@ function drawLineChart(cssSelector){
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#apple-stock-chart-container").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("class", "chart")
-    .attr("id", "apple-stock-chart-container")
+    .attr("id", idAttr)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.tsv("data.tsv", function(error, data) {
+  d3.tsv(dataFile, function(error, data) {
   if (error) throw error;
 
   data.forEach(function(d) {
@@ -103,4 +102,5 @@ function drawLineChart(cssSelector){
   });
 }
 
-drawLineChart();
+drawLineChart("apple-stock-chart-container", "data.tsv");
+drawLineChart("google-stock-chart", "data.tsv");
