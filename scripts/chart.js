@@ -102,5 +102,5 @@ function drawLineChart(idAttr, dataFile){
   });
 }
 
-drawLineChart("apple-stock-chart-container", "data.tsv");
-drawLineChart("google-stock-chart", "data.tsv");
+drawLineChart("#apple-stock-chart-container", "data.tsv");
+drawLineChart("#apple-stock-chart-2", "google_data.tsv");
