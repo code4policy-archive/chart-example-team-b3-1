@@ -1,3 +1,31 @@
-p {
-	color: darkred;
+body {
+  font: 10px sans-serif;
 }
+
+#apple-stock-chart-container .axis path,
+#apple-stock-chart-container.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#apple-stock-chart-container .x.axis path {
+  display: none;
+}
+
+#apple-stock-chart-container .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+#apple-stock-chart-container .overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+#apple-stock-chart-container .focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
