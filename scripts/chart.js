@@ -1,39 +1,42 @@
-var margin = {top: 20, right: 50, bottom: 30, left: 50},
+function drawLineChart(idAttr, dataFile, cssSelector){
+  // code to draw line chart goes here.
+
+  var margin = {top: 20, right: 50, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var parseDate = d3.time.format("%d-%b-%y").parse,
+  var parseDate = d3.time.format("%d-%b-%y").parse,
     bisectDate = d3.bisector(function(d) { return d.date; }).left,
     formatValue = d3.format(",.2f"),
     formatCurrency = function(d) { return "$" + formatValue(d); };
 
-var x = d3.time.scale()
+  var x = d3.time.scale()
     .range([0, width]);
 
-var y = d3.scale.linear()
+  var y = d3.scale.linear()
     .range([height, 0]);
 
-var xAxis = d3.svg.axis()
+  var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom");
 
-var yAxis = d3.svg.axis()
+  var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var line = d3.svg.line()
+  var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-var svg = d3.select("body").append("svg")
+  var svg = d3.select(cssSelector).append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("class", "chart")
-    .attr("id", "apple-stock-chart-container")
+    .attr("id", idAttr)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("data.tsv", function(error, data) {
+  d3.tsv(dataFile, function(error, data) {
   if (error) throw error;
 
   data.forEach(function(d) {
@@ -95,5 +98,9 @@ d3.tsv("data.tsv", function(error, data) {
         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
     focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
     focus.select("text").text(formatCurrency(d.close));
-  }
-});
+    }
+  });
+}
+
+drawLineChart("apple-stock-chart", "data.tsv", "#apple-stock-chart-container");
+drawLineChart("google-stock-chart", "google_data.tsv", "#google-stock-chart-container");
